@@ -10,10 +10,11 @@ public class MovingPanel extends JPanel {
 
     private final int D = 200; //diameter
     private final int X = 40; //x coord
-    private final float COEFFICIENT = (float)((4/3) * 0.07f * Math.sqrt(D/2));
+    private final float COEFFICIENT = (float)((4f/3f) * 0.07 * Math.sqrt(D/2));
 
     private int yFirst = 40;
     private int ySecond = yFirst + D + 10;
+
     private final int yCenter = ySecond - yFirst + (int)(0.175 * D); //MAGIC CONSTANTS
 
     public static volatile double F;
@@ -42,11 +43,11 @@ public class MovingPanel extends JPanel {
     }
 
     private void update() {
-        d = D - (ySecond - yFirst);
+        d = (D - (ySecond - yFirst))/2;
         if(d < 0) d = 0;
-        F = COEFFICIENT * Math.pow(d, 3/2);
+        F = COEFFICIENT * d * Math.sqrt(d);
 
-        if(d < 0.4 * D) {
+        if(d < 0.2 * (D/2)) {
             yFirst++;
             ySecond--;
         } else {

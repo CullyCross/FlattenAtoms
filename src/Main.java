@@ -21,7 +21,7 @@ public class Main {
     private final static int FORM_WIDTH = 700;
     private final static int FORM_HEIGHT = 500;
 
-    private final static int TIME_BETWEEN_ITERATIONS = 300; //set here delay time(ms)
+    private final static int TIME_BETWEEN_ITERATIONS = 50; //set here delay time(ms)
 
     public static void main(String... args) {
         final JFrame frame = new JFrame("For my shining stars!");
@@ -41,8 +41,6 @@ public class Main {
         JFreeChart chart = ChartFactory.createXYLineChart("Chart",
                 "F, N", "S, mkm^2", dataset, PlotOrientation.VERTICAL, false, true, false);
         ChartPanel chartPanel = new ChartPanel(chart);
-        //chart.getXYPlot().getDomainAxis().setRange(0.0d, 260d);
-        //chart.getXYPlot().getRangeAxis().setRange(0.0d, 260d);
 
         frame.getContentPane().add(chartPanel);
 
@@ -53,7 +51,10 @@ public class Main {
             @Override
             public void run() {
                 frame.repaint();
-                series.add(MovingPanel.F, Math.PI * MovingPanel.d);
+                System.out.println("d = " + MovingPanel.d +
+                        " F = " + MovingPanel.F +
+                        " S = " + (Math.PI * MovingPanel.d * 100));
+                series.add(MovingPanel.F, Math.PI * MovingPanel.d * 100);
                 if (!MovingPanel.sRun) {
                     timer.cancel();
                     timer.purge();
